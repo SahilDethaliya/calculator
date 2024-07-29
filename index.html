@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>calculator</title>
+	<style type="text/css">
+
+		body{
+
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+
+		}
+
+		*{
+
+			margin: 0;
+			padding:0 ;
+			box-sizing: border-box;
+
+		}
+
+		.main{
+
+			height: 480px;
+			width: 340px;
+/*			border: 5px solid #000;*/
+			margin: 100px 200px;
+			padding: 20px;
+			position: relative;
+			border-radius: 10px;
+			background: #ffffff	;
+			box-shadow:  0px 0px 20px #d4d4d4,
+			             0px 0px 20px #ffffff;
+
+		}
+
+		.top{
+
+			height: 50%;
+			color: white;
+			border-bottom:5px solid white ;
+
+		}
+
+		.top input:focus{
+			border: none;
+			outline: none;
+		}
+
+		.top input{
+
+			padding: 10px;
+			border: none;
+			width: 100%;
+			height: 80px;
+			text-align: right;
+			font-size: 30px;
+			border-radius: 5px;
+			background: #403f3f;
+			box-shadow:  -7px 7px 14px #d4d4d4,
+			             7px -7px 14px #ffffff;
+			color: white;
+
+		}
+
+		.bottom{
+
+			color: white;
+			position: absolute;
+			top: 25%;
+			left: 5px;
+
+		}
+
+		td input:hover{
+
+			transform: scale(0.91);
+
+		}
+
+		td input{
+
+			
+			margin: 5px;
+			height: 57px;
+			width: 70px;
+			cursor: pointer;
+			text-align: center;
+			font-size: 25px;
+			border: none;	
+			border-radius: 5px;
+			background: #ffffff;
+			box-shadow:  8px 8px 16px #d9d9d9,
+             			-8px -8px 16px #ffffff;
+            transition: 0.2s;
+
+		}
+
+		.rowspan input{
+
+			height: 116px;
+			border: none;
+			color: white;
+			background: green;
+			box-shadow:  8px 8px 16px #d9d9d9,
+             			-8px -8px 16px #ffffff;
+
+		}
+
+		.clr input{
+			color: white;
+			background-color: red;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="main">
+		<div class="top">
+			<input type="text" name="" id='disp' readonly>
+		</div>
+		<div class="bottom">
+			<table>
+				<tr>
+					<td class="clr"><input type="button" value="AC" onclick="clrdata()"></td>
+					<td><input type="button" value="/" onclick="data(4)"></td>
+					<td><input type="button" value="X" onclick="data(3)"></td>
+					<td><input type="button" value="%" onclick="data(5)"></td>
+				</tr>
+				<tr>
+					<td><input type="button" value="7" onclick="getdata('7')"></td>
+					<td><input type="button" value="8" onclick="getdata('8')"></td>
+					<td><input type="button" value="9" onclick="getdata('9')"></td>
+					<td><input type="button" value="-" onclick="data(2)"></td>
+				</tr>
+				<tr>
+					<td><input type="button" value="4" onclick="getdata('4')"></td>
+					<td><input type="button" value="5" onclick="getdata('5')"></td>
+					<td><input type="button" value="6" onclick="getdata('6')"></td>
+					<td><input type="button" value="+" onclick="data(1)"></td>
+				</tr>
+				<tr>
+					<td><input type="button" value="1" onclick="getdata('1')"></td>
+					<td><input type="button" value="2" onclick="getdata('2')"></td>
+					<td><input type="button" value="3" onclick="getdata('3')"></td>
+					<td rowspan="2" class="rowspan">
+						<input type="button" value="=" onclick="cal()">
+					</td>
+				</tr>
+				<tr>
+					<td><input type="button" value="." onclick="getdata('.')"></td>
+					<td><input type="button" value="0" onclick="getdata('0')"></td>
+					<td><input type="button" value="00" onclick="getdata('00')"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+
+
+	<script type="text/javascript">
+
+		var	first_val,last_val,val;
+		function getdata(x) {
+			document.getElementById('disp').value+=x;
+		}
+		function data(ch) {
+			
+			first_val=document.getElementById('disp').value;
+			document.getElementById('disp').value='';
+			val=ch;
+		}
+		// function ans(){
+		// 	last_val=document.getElementById('disp').value;
+		// 	var ans=parseInt(frist_val)+parseInt(last_val);
+
+		// 	document.getElementById('disp').value=ans;
+		// }
+		function cal(){
+
+			last_val=document.getElementById('disp').value;
+
+			switch(val){
+
+				case 1:{
+					
+					var ans=parseInt(first_val)+parseInt(last_val);
+					document.getElementById('disp').value=ans;
+					break;
+
+				}
+				case 2:{
+			
+					var ans=parseInt(first_val)-parseInt(last_val);
+					document.getElementById('disp').value=ans;
+					break;
+
+				}
+				case 3:{
+					var ans=parseInt(first_val)*parseInt(last_val);
+					document.getElementById('disp').value=ans;
+					break;
+
+				}
+				case 4:{
+
+					var ans=parseInt(first_val)/parseInt(last_val);
+					document.getElementById('disp').value=ans;
+					break;
+
+				}
+				case 5:{
+
+					var ans=parseInt(first_val)%parseInt(last_val);
+					document.getElementById('disp').value=ans;
+					break;
+
+				}
+			}
+		}
+
+		function clrdata(){
+
+			document.getElementById('disp').value='';
+
+		}
+		function remove_data(){
+
+			var del=document.getElementById('disp').value;
+			var n=del.substring(0,del.length-1);
+			document.getElementById('disp').value=n;
+			
+		}
+
+
+	</script>
+</body>
+</html>
